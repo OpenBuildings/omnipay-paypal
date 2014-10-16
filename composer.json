@@ -9,7 +9,13 @@
             "role": "Author"
         }
     ],
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
     "autoload": {
-        "psr-4": {"CL\\OmnipayPaypal\\": "src/"}
+        "psr-4": {"Omnipay\\PaypalRest\\": "src/"}
     }
 }

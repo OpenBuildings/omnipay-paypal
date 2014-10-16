@@ -1,0 +1,11 @@
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbjava1.slc.paypal.com;threadId=168524
+Paypal-Debug-Id: c78e577f47a3e
+Content-Language: *
+Date: Thu, 16 Oct 2014 19:49:38 GMT
+SERVER_INFO: vaultplatformserv:v1.vault.credit-card&CalThreadId=153&TopLevelTxnStartTime=1491a82286d&Host=slcsbvaultplatformserv501.slc.paypal.com&pid=6900
+Content-Type: application/json
+Content-Length: 665
+
+{"id":"CARD-36F38182Y8875171YKRACCUQ","state":"ok","type":"visa","number":"xxxxxxxxxxxx1111","expire_month":"8","expire_year":"2016","first_name":"Test","last_name":"User1","valid_until":"2017-10-15T00:00:00Z","create_time":"2014-10-16T19:49:38Z","update_time":"2014-10-16T19:49:38Z","links":[{"href":"https://api.sandbox.paypal.com/v1/vault/credit-card/CARD-36F38182Y8875171YKRACCUQ","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/vault/credit-card/CARD-36F38182Y8875171YKRACCUQ","rel":"delete","method":"DELETE"},{"href":"https://api.sandbox.paypal.com/v1/vault/credit-card/CARD-36F38182Y8875171YKRACCUQ","rel":"patch","method":"PATCH"}]}

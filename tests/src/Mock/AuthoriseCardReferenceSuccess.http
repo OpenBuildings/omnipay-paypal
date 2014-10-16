@@ -1,0 +1,11 @@
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbplatformapiserv3001.slc.paypal.com;threadId=46078
+Paypal-Debug-Id: a2167e3878599
+SERVER_INFO: paymentsplatformserv:v1.payments.payment&CalThreadId=18418&TopLevelTxnStartTime=1491a96f755&Host=slcsbjm2.slc.paypal.com&pid=6096
+Content-Language: *
+Date: Thu, 16 Oct 2014 20:12:23 GMT
+Content-Type: application/json
+Content-Length: 1398
+
+{"id":"PAY-4V0070781F8703918KRACNJI","create_time":"2014-10-16T20:12:21Z","update_time":"2014-10-16T20:12:23Z","state":"approved","intent":"authorize","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card_token":{"credit_card_id":"CARD-36F38182Y8875171YKRACCUQ","last4":"1111","type":"visa","expire_month":"8","expire_year":"2016"}}]},"transactions":[{"amount":{"total":"3.00","currency":"USD","details":{"subtotal":"3.00"}},"related_resources":[{"authorization":{"id":"1CF71998H9869342R","create_time":"2014-10-16T20:12:21Z","update_time":"2014-10-16T20:12:23Z","amount":{"total":"3.00","currency":"USD","details":{"subtotal":"3.00"}},"state":"authorized","parent_payment":"PAY-4V0070781F8703918KRACNJI","valid_until":"2014-11-14T20:12:21Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1CF71998H9869342R","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1CF71998H9869342R/capture","rel":"capture","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1CF71998H9869342R/void","rel":"void","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-4V0070781F8703918KRACNJI","rel":"parent_payment","method":"GET"}]}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-4V0070781F8703918KRACNJI","rel":"self","method":"GET"}]}

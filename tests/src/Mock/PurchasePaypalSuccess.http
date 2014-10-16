@@ -1,0 +1,11 @@
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbplatformapiserv3002.slc.paypal.com;threadId=573
+Paypal-Debug-Id: 8e1f6db2c34c7
+SERVER_INFO: paymentsplatformserv:v1.payments.payment&CalThreadId=128&TopLevelTxnStartTime=149189d18ab&Host=slcsbjm1.slc.paypal.com&pid=29665
+Content-Language: *
+Date: Thu, 16 Oct 2014 10:59:49 GMT
+Content-Type: application/json
+Content-Length: 958
+
+{"id":"PAY-7N5239784Y302191WKQ72KJI","create_time":"2014-10-16T10:59:49Z","update_time":"2014-10-16T10:59:49Z","state":"created","intent":"sale","payer":{"payment_method":"paypal","payer_info":{"shipping_address":{}}},"transactions":[{"amount":{"total":"15.00","currency":"GBP","details":{"subtotal":"15.00"}},"item_list":{"items":[{"name":"10","price":"5.00","currency":"GBP","quantity":"2","description":"Product 1 Desc"},{"name":"12","price":"5.00","currency":"GBP","quantity":"1","description":"Shipping for Product 1"}]},"related_resources":[]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-7N5239784Y302191WKQ72KJI","rel":"self","method":"GET"},{"href":"https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2PU56195M4518381J","rel":"approval_url","method":"REDIRECT"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-7N5239784Y302191WKQ72KJI/execute","rel":"execute","method":"POST"}]}

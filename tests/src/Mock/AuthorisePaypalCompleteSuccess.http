@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbplatformapiserv3002.slc.paypal.com;threadId=45043
+Paypal-Debug-Id: 0983f89174443
+SERVER_INFO: paymentsplatformserv:v1.payments.payment&CalThreadId=167&TopLevelTxnStartTime=14919367b5d&Host=slcsbpaymentsplatformserv3001.slc.paypal.com&pid=31898
+Content-Language: *
+Date: Thu, 16 Oct 2014 13:47:22 GMT
+Content-Type: application/json
+Content-Length: 1794
+
+{"id":"PAY-2LY017912Y929154HKQ74XPY","create_time":"2014-10-16T13:44:31Z","update_time":"2014-10-16T13:47:22Z","state":"approved","intent":"authorize","payer":{"payment_method":"paypal","payer_info":{"email":"buyer@openbuildings.com","first_name":"Buyer","last_name":"Clippings","payer_id":"HVMBSS6TABKJN","shipping_address":{"line1":"1 Main St","city":"San Jose","state":"CA","postal_code":"95131","country_code":"US","recipient_name":"Buyer Clippings"}}},"transactions":[{"amount":{"total":"15.00","currency":"GBP","details":{"subtotal":"15.00"}},"related_resources":[{"authorization":{"id":"1SN458127W2399139","create_time":"2014-10-16T13:44:31Z","update_time":"2014-10-16T13:47:22Z","amount":{"total":"15.00","currency":"GBP","details":{"subtotal":"15.00"}},"payment_mode":"INSTANT_TRANSFER","state":"authorized","protection_eligibility":"ELIGIBLE","protection_eligibility_type":"ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE","parent_payment":"PAY-2LY017912Y929154HKQ74XPY","valid_until":"2014-11-14T13:44:31Z","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1SN458127W2399139","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1SN458127W2399139/capture","rel":"capture","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1SN458127W2399139/void","rel":"void","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/authorization/1SN458127W2399139/reauthorize","rel":"reauthorize","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-2LY017912Y929154HKQ74XPY","rel":"parent_payment","method":"GET"}]}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-2LY017912Y929154HKQ74XPY","rel":"self","method":"GET"}]}

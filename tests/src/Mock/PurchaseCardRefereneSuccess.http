@@ -1,0 +1,11 @@
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbjava4.slc.paypal.com;threadId=272
+Paypal-Debug-Id: 51897d7ba57bf
+SERVER_INFO: paymentsplatformserv:v1.payments.payment&CalThreadId=208&TopLevelTxnStartTime=1491a8c896d&Host=slcsbjm3.slc.paypal.com&pid=10739
+Content-Language: *
+Date: Thu, 16 Oct 2014 20:00:59 GMT
+Content-Type: application/json
+Content-Length: 1176
+
+{"id":"PAY-3J739162HD990921VKRACH6Q","create_time":"2014-10-16T20:00:58Z","update_time":"2014-10-16T20:00:59Z","state":"approved","intent":"sale","payer":{"payment_method":"credit_card","funding_instruments":[{"credit_card_token":{"credit_card_id":"CARD-36F38182Y8875171YKRACCUQ","last4":"1111","type":"visa","expire_month":"8","expire_year":"2016"}}]},"transactions":[{"amount":{"total":"3.00","currency":"USD","details":{"subtotal":"3.00"}},"related_resources":[{"sale":{"id":"71302803XW437763C","create_time":"2014-10-16T20:00:58Z","update_time":"2014-10-16T20:00:59Z","amount":{"total":"3.00","currency":"USD"},"state":"completed","parent_payment":"PAY-3J739162HD990921VKRACH6Q","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/sale/71302803XW437763C","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/sale/71302803XW437763C/refund","rel":"refund","method":"POST"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-3J739162HD990921VKRACH6Q","rel":"parent_payment","method":"GET"}]}}]}],"links":[{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-3J739162HD990921VKRACH6Q","rel":"self","method":"GET"}]}

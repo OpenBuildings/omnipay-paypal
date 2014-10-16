@@ -1,6 +1,6 @@
 <?php
 
-namespace CL\OmnipayPaypal\Test;
+namespace Omnipay\PaypalRest\Test;
 
 use PHPUnit_Framework_TestCase;
 

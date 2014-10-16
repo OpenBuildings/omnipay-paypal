@@ -1,0 +1,11 @@
+HTTP/1.1 201 Created
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbplatformapiserv3001.slc.paypal.com;threadId=3046
+Paypal-Debug-Id: bac2914181bf9
+SERVER_INFO: paymentsplatformserv:v1.payments.capture&CalThreadId=90&TopLevelTxnStartTime=14919a95332&Host=slcsbpaymentsplatformserv3001.slc.paypal.com&pid=31898
+Content-Language: *
+Date: Thu, 16 Oct 2014 15:52:48 GMT
+Content-Type: application/json
+Content-Length: 601
+
+{"id":"3KC74088CH688810Y","create_time":"2014-10-16T15:52:48Z","update_time":"2014-10-16T15:52:48Z","state":"completed","amount":{"total":"3.00","currency":"USD"},"capture_id":"1D2800957K044141A","parent_payment":"PAY-8GM471425F0162713KQ75RMA","links":[{"href":"https://api.sandbox.paypal.com/v1/payments/refund/3KC74088CH688810Y","rel":"self","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/payment/PAY-8GM471425F0162713KQ75RMA","rel":"parent_payment","method":"GET"},{"href":"https://api.sandbox.paypal.com/v1/payments/capture/1D2800957K044141A","rel":"capture","method":"GET"}]}
