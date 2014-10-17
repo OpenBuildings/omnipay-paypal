@@ -102,8 +102,8 @@ class PaymentApproveResponseTest extends TestCase
         $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMock(
             'Omnipay\PaypalRest\Message\PaymentApproveResponse',
-            ['getLink'],
-            [$request, array()]
+            array('getLink'),
+            array($request, array())
         );
 
         $response

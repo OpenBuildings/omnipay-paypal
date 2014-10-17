@@ -107,7 +107,7 @@ class AbstractPaypalRequestTest extends TestCase
             'Host' => array('api.paypal.com'),
             'Accept' => array('application/json'),
             'Content-Type' => array('application/json'),
-            'User-Agent' => array('Guzzle/3.9.2 curl/7.26.0 PHP/5.4.4-14+deb7u14'),
+            'User-Agent' => array($this->getHttpClient()->getDefaultUserAgent()),
             'Authorization' => array('Bearer testtoken'),
             'Content-Length' => array(11),
         );
@@ -126,16 +126,16 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()],
+            array($this->getHttpClient(), $this->getHttpRequest()),
             '',
             true,
             true,
             true,
-            ['getHttpRequest']
+            array('getHttpRequest')
         );
 
 
-        $httpRequest = $this->getMock('Guzzle\Http\Message\Request', ['send'], [], '', false);
+        $httpRequest = $this->getMock('Guzzle\Http\Message\Request', array('send'), array(), '', false);
 
         $expected = new Response(204, array('Content-Type' => 'application/json'), '{"status":"ok"}');
 

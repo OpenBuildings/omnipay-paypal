@@ -151,8 +151,8 @@ class RefundRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\RefundRequest',
-            ['sendHttpRequest'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('sendHttpRequest'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $data = array('data' => 1);

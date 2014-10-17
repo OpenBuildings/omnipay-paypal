@@ -397,8 +397,8 @@ class PaymentRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\PaymentRequest',
-            [$expectedMethod],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($expectedMethod),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->initialize($parameters);
@@ -430,8 +430,8 @@ class PaymentRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\PaymentRequest',
-            ['getPayerData', 'getTransactionData'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('getPayerData', 'getTransactionData'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->initialize(array('intent' => 'authorize'));
@@ -471,8 +471,8 @@ class PaymentRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\PaymentRequest',
-            ['sendHttpRequest', 'getRequiredRedirect'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('sendHttpRequest', 'getRequiredRedirect'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $data = array('data' => 1);

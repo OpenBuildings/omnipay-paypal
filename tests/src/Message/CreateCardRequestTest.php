@@ -126,8 +126,8 @@ class CreateCardRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\CreateCardRequest',
-            ['sendHttpRequest'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('sendHttpRequest'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $data = array('data' => 1);

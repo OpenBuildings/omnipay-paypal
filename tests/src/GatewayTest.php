@@ -119,7 +119,7 @@ class GatewayTest extends TestCase
 
     public function testGetToken()
     {
-        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', ['getTokenResponse']);
+        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', array('getTokenResponse'));
 
         $tokenResponse = new TokenResponse(
             $gateway->token(),
@@ -145,9 +145,9 @@ class GatewayTest extends TestCase
 
     public function testGetTokenResponse()
     {
-        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', ['token']);
+        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', array('token'));
 
-        $tokenRequest = $this->getMock('Omnipay\PaypalRest\Message\TokenRequest', ['send'], [], '', false);
+        $tokenRequest = $this->getMock('Omnipay\PaypalRest\Message\TokenRequest', array('send'), array(), '', false);
 
         $expected = new TokenResponse($tokenRequest, array(), 200);
 
@@ -171,7 +171,7 @@ class GatewayTest extends TestCase
      */
     public function testCreateRequestWithToken()
     {
-        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', ['getToken']);
+        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', array('getToken'));
 
         $gateway
             ->expects($this->once())
@@ -218,9 +218,9 @@ class GatewayTest extends TestCase
      */
     public function testRequest($method, $class, $additionalParameters)
     {
-        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', ['createRequestWithToken']);
+        $gateway = $this->getMock('Omnipay\PaypalRest\Gateway', array('createRequestWithToken'));
 
-        $expected = $this->getMock($class, [], [], '', false);
+        $expected = $this->getMock($class, array(), array(), '', false);
 
         $gateway
             ->expects($this->once())

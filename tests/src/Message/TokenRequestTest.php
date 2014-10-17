@@ -76,7 +76,7 @@ class TokenRequestTest extends TestCase
             'Host' => array('api.paypal.com'),
             'Accept' => array('application/json'),
             'Content-Type' => array('application/x-www-form-urlencoded; charset=utf-8'),
-            'User-Agent' => array('Guzzle/3.9.2 curl/7.26.0 PHP/5.4.4-14+deb7u14'),
+            'User-Agent' => array($this->getHttpClient()->getDefaultUserAgent()),
             'Authorization' => array('Basic Y2xpZW50OnRlc3Q=')
         );
 
@@ -91,11 +91,11 @@ class TokenRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\TokenRequest',
-            ['getHttpRequest'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('getHttpRequest'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
-        $httpRequest = $this->getMock('Guzzle\Http\Message\Request', ['send'], [], '', false);
+        $httpRequest = $this->getMock('Guzzle\Http\Message\Request', array('send'), array(), '', false);
 
         $expected = new Response(204, array('Content-Type' => 'application/json'), '{"access_token":"test"}');
 
@@ -121,8 +121,8 @@ class TokenRequestTest extends TestCase
     {
         $request = $this->getMock(
             'Omnipay\PaypalRest\Message\TokenRequest',
-            ['sendHttpRequest'],
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array('sendHttpRequest'),
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request
