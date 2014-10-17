@@ -48,7 +48,7 @@ class CardMockTest extends TestCase
         $request = new UpdateCardRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
             'card' => $this->getValidCard(),
-            'cardReference' => 'CARD-2F417848LC187391NKRABZXQ',
+            'cardReference' => 'CARD-9TX83955Y6631202AKRAPFJI',
         ));
 
         $response = $request->send();
@@ -56,7 +56,7 @@ class CardMockTest extends TestCase
         $this->assertInstanceOf('Omnipay\PaypalRest\Message\UpdateCardResponse', $response);
         $this->assertTrue($response->isSuccessful());
 
-        $this->assertEquals('CARD-36F38182Y8875171YKRACCUQ', $response->getTransactionReference());
+        $this->assertEquals('CARD-9TX83955Y6631202AKRAPFJI', $response->getTransactionReference());
     }
 
     /**

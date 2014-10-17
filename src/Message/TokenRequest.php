@@ -49,9 +49,36 @@ class TokenRequest extends AbstractRequest
         return $this->getParameter('secret');
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         return array();
+    }
+
+    /**
+     * @return Guzzle\Http\Message\Response
+     */
+    public function sendHttpRequest()
+    {
+        return $this->getHttpRequest()->send();
+    }
+
+    /**
+     * @return Guzzle\Http\Message\Request
+     */
+    public function getHttpRequest()
+    {
+        $httpRequest = $this->httpClient->post(
+            $this->getServer().$this->getEndpoint(),
+            array('Accept' => 'application/json'),
+            array('grant_type' => 'client_credentials')
+        );
+
+        $httpRequest->setAuth($this->getClientId(), $this->getSecret());
+
+        return $httpRequest;
     }
 
     /**
@@ -60,17 +87,7 @@ class TokenRequest extends AbstractRequest
      */
     public function sendData($data)
     {
-        $httpRequest = $this->httpClient->post(
-            $this->getServer().$this->getEndpoint(),
-            array(
-                'Accept' => 'application/json',
-            ),
-            array('grant_type' => 'client_credentials')
-        );
-
-        $httpRequest->setAuth($this->getClientId(), $this->getSecret());
-
-        $httpResponse = $httpRequest->send();
+        $httpResponse = $this->sendHttpRequest();
 
         return $this->response = new TokenResponse(
             $this,

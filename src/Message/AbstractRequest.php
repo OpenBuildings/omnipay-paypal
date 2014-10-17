@@ -20,6 +20,11 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->getTestMode() ? self::SANDBOX : self::LIVE;
     }
 
+    /**
+     * Requires a valid "card" parameter
+     *
+     * @return array
+     */
     public function getPaypalCard()
     {
         $this->validate('card');

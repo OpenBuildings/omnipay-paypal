@@ -11,15 +11,26 @@ use Omnipay\Common\Message\RequestInterface;
  */
 class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 {
-    protected $statusCode;
+    /**
+     * @var integer
+     */
+    protected $code;
 
-    public function __construct(RequestInterface $request, $data, $statusCode = 200)
+    /**
+     * @param RequestInterface $request
+     * @param array            $data
+     * @param integer          $code
+     */
+    public function __construct(RequestInterface $request, $data, $code = 200)
     {
         parent::__construct($request, $data);
 
-        $this->statusCode = $statusCode;
+        $this->code = (int) $code;
     }
 
+    /**
+     * @return string|null
+     */
     public function getTransactionReference()
     {
         if (isset($this->data['id'])) {
@@ -35,6 +46,9 @@ class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         return $this->getCode() < 400;
     }
 
+    /**
+     * @return string|null
+     */
     public function getStatus()
     {
         if (isset($this->data['status'])) {
@@ -42,6 +56,9 @@ class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
         }
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage()
     {
         $message = null;
@@ -58,10 +75,10 @@ class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
     }
 
     /**
-     * @return string|null
+     * @return integer
      */
     public function getCode()
     {
-        return $this->statusCode;
+        return $this->code;
     }
 }

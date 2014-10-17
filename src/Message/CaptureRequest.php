@@ -12,13 +12,20 @@ use Omnipay\Common\Item;
 class CaptureRequest extends AbstractPaypalRequest
 {
     /**
+     * Requires "purchaseId" parameter
+     *
      * @return string
      */
     public function getEndpoint()
     {
-        return '/payments/authorization/'.$this->getPurchaseId().'/capture';
+        $this->validate('purchaseId');
+
+        return "/payments/authorization/{$this->getPurchaseId()}/capture";
     }
 
+    /**
+     * @return string
+     */
     public function getHttpMethod()
     {
         return 'POST';
@@ -58,11 +65,11 @@ class CaptureRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\CaptureResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new CaptureResponse(
             $this,
@@ -71,9 +78,14 @@ class CaptureRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * Requires "amount" and "currency" parameters
+     *
+     * @return array
+     */
     public function getData()
     {
-        $this->validate('purchaseId', 'amount', 'currency');
+        $this->validate('amount', 'currency');
 
         $data = array(
             'amount' => array(

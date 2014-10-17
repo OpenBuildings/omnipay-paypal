@@ -18,9 +18,12 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
     {
         $this->validate('purchaseId');
 
-        return '/payments/payment/'.$this->getPurchaseId().'/execute';
+        return "/payments/payment/{$this->getPurchaseId()}/execute";
     }
 
+    /**
+     * @return string
+     */
     public function getHttpMethod()
     {
         return 'POST';
@@ -60,11 +63,11 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\PaymentResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new PaymentResponse(
             $this,
@@ -73,6 +76,9 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         $this->validate('payerId');

@@ -9,8 +9,15 @@ namespace Omnipay\PaypalRest\Message;
  */
 class VoidResponse extends AbstractResponse
 {
+    /**
+     * Return true if state is "voided"
+     *
+     * @return boolean
+     */
     public function isSuccessful()
     {
-        return (parent::isSuccessful() and $this->data['state'] === 'voided');
+        return (parent::isSuccessful()
+            and isset($this->data['state'])
+            and $this->data['state'] === 'voided');
     }
 }

@@ -3,6 +3,7 @@
 namespace Omnipay\PaypalRest\Message;
 
 use Omnipay\Common\Item;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\PaypalRest\CreditCard;
 
 /**
@@ -54,11 +55,11 @@ class PaymentRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\PaymentResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         if ($this->getRequiredRedirect()) {
             return $this->response = new PaymentApproveResponse(
@@ -75,6 +76,9 @@ class PaymentRequest extends AbstractPaypalRequest
         }
     }
 
+    /**
+     * @return array
+     */
     public function getTransactionData()
     {
         $this->validate('currency', 'amount');
@@ -108,6 +112,9 @@ class PaymentRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getPayerPaypalData()
     {
         $this->validate('returnUrl', 'cancelUrl');
@@ -123,6 +130,9 @@ class PaymentRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getPayerCardReferenceData()
     {
         $this->validate('cardReference');
@@ -135,13 +145,16 @@ class PaymentRequest extends AbstractPaypalRequest
                         'credit_card_token' => array_filter(array(
                             'credit_card_id' => $this->getCardReference(),
                             'payer_id' => $this->getPayerId()
-                        ))
-                    )
+                        )),
+                    ),
                 ),
-            )
+            ),
         );
     }
 
+    /**
+     * @return array
+     */
     public function getPayerCardData()
     {
         return array(
@@ -152,15 +165,21 @@ class PaymentRequest extends AbstractPaypalRequest
                         'credit_card' => $this->getPaypalCard()
                     ),
                 ),
-            )
+            ),
         );
     }
 
+    /**
+     * @return boolean
+     */
     public function getRequiredRedirect()
     {
         return false === ($this->getCardReference() or $this->getCard());
     }
 
+    /**
+     * @return array
+     */
     public function getPayerData()
     {
         if ($this->getCardReference()) {
@@ -172,9 +191,16 @@ class PaymentRequest extends AbstractPaypalRequest
         }
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         $this->validate('intent');
+
+        if (false === in_array($this->getIntent(), array('sale', 'authorize'))) {
+            throw new InvalidRequestException('Intent can only be "sale" or "authorize"');
+        }
 
         return array_merge_recursive(
             array('intent' => $this->getIntent()),

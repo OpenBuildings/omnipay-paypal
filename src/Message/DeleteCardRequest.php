@@ -12,10 +12,14 @@ use Omnipay\Common\Item;
 class DeleteCardRequest extends AbstractPaypalRequest
 {
     /**
+     * Requires "cardReference" parameter
+     *
      * @return string
      */
     public function getEndpoint()
     {
+        $this->validate('cardReference');
+
         return '/vault/credit-card/'.$this->getCardReference();
     }
 
@@ -30,7 +34,7 @@ class DeleteCardRequest extends AbstractPaypalRequest
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new DeleteCardResponse(
             $this,
@@ -39,10 +43,11 @@ class DeleteCardRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
-        $this->validate('cardReference');
-
         return array();
     }
 }

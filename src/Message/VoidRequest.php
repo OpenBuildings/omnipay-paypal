@@ -16,6 +16,8 @@ class VoidRequest extends AbstractPaypalRequest
      */
     public function getEndpoint()
     {
+        $this->validate('purchaseId');
+
         return '/payments/authorization/'.$this->getPurchaseId().'/void';
     }
 
@@ -42,11 +44,11 @@ class VoidRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\VoidResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new VoidResponse(
             $this,
@@ -55,10 +57,11 @@ class VoidRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
-        $this->validate('purchaseId');
-
         return array();
     }
 }

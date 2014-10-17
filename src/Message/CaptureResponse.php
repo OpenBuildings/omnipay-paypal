@@ -9,8 +9,15 @@ namespace Omnipay\PaypalRest\Message;
  */
 class CaptureResponse extends AbstractResponse
 {
+    /**
+     * Return true if state is "completed"
+     *
+     * @return boolean
+     */
     public function isSuccessful()
     {
-        return (parent::isSuccessful() and $this->data['state'] === 'completed');
+        return (parent::isSuccessful()
+            and isset($this->data['state'])
+            and $this->data['state'] === 'completed');
     }
 }

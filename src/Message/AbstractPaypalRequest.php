@@ -15,7 +15,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     abstract function getEndpoint();
 
     /**
-     * Copied from Official Paypal SDK
+     * From Official Paypal SDK
      *
      * @return string
      */
@@ -39,16 +39,23 @@ abstract class AbstractPaypalRequest extends AbstractRequest
         return $addr . $pid . $_SERVER['REQUEST_TIME'] . mt_rand(0, 0xffff);
     }
 
+    /**
+     * @return string
+     */
     public function getHttpMethod()
     {
         return 'POST';
     }
 
+    /**
+     * @param  array  $parameters
+     * @return self
+     */
     public function initialize(array $parameters = array())
     {
         parent::initialize($parameters);
 
-        if (null !== $this->getRequestId()) {
+        if (null === $this->getRequestId()) {
             $this->setRequestId($this->generateRequestId());
         }
 
@@ -88,21 +95,12 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     }
 
     /**
-     * @param  mixed $data
-     * @return array
+     * @param  array  $data
+     * @return Guzzle\Http\Message\Request
      */
-    public function sendData($data)
+    public function getHttpRequest(array $data)
     {
-        $this->httpClient->getEventDispatcher()->addListener(
-            'request.error',
-            function ($event) {
-                if ($event['response']->isClientError()) {
-                    $event->stopPropagation();
-                }
-            }
-        );
-
-        $httpRequest = $this->httpClient->createRequest(
+        return $this->httpClient->createRequest(
             $this->getHttpMethod(),
             $this->getServer().$this->getEndpoint(),
             array(
@@ -112,7 +110,14 @@ abstract class AbstractPaypalRequest extends AbstractRequest
             ),
             empty($data) ? '{}' : json_encode($data)
         );
+    }
 
-        return $httpRequest->send();
+    /**
+     * @param  array  $data
+     * @return Guzzle\Http\Message\Response
+     */
+    public function sendHttpRequest(array $data)
+    {
+        return $this->getHttpRequest($data)->send();
     }
 }

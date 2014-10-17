@@ -3,6 +3,7 @@
 namespace Omnipay\PaypalRest\Message;
 
 use Omnipay\Common\Item;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * @author    Ivan Kerin <ikerin@gmail.com>
@@ -16,7 +17,13 @@ class RefundRequest extends AbstractPaypalRequest
      */
     public function getEndpoint()
     {
-        return '/payments/'.$this->getType().'/'.$this->getPurchaseId().'/refund';
+        $this->validate('purchaseId', 'type');
+
+        if (false === in_array($this->getType(), array('sale', 'authorization', 'capture'))) {
+            throw new InvalidRequestException('Type can only be "sale", "authorization" or "capture"');
+        }
+
+        return "/payments/{$this->getType()}/{$this->getPurchaseId()}/refund";
     }
 
     public function getHttpMethod()
@@ -58,11 +65,11 @@ class RefundRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\RefundResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new RefundResponse(
             $this,
@@ -71,10 +78,11 @@ class RefundRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
-        $this->validate('purchaseId', 'type');
-
         if ($this->getAmount()) {
             $this->validate('currency');
 

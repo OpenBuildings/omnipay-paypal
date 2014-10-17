@@ -2,17 +2,16 @@
 
 namespace Omnipay\PaypalRest\Test\Message;
 
-// use Omnipay\Tests\GatewayTestCase;
-use Omnipay\Omnipay;
 use Omnipay\Tests\TestCase;
 use Omnipay\PaypalRest\Message\PaymentRequest;
+use Guzzle\Http\Message\Response;
 
 /**
  * @author    Ivan Kerin <ikerin@gmail.com>
  * @copyright 2014, Clippings Ltd.
  * @license   http://spdx.org/licenses/BSD-3-Clause
  *
- * @coversDefaultClass Omnipay\PaypalRest\Message\PurchaseRequest
+ * @coversDefaultClass Omnipay\PaypalRest\Message\PaymentRequest
  */
 class PaymentRequestTest extends TestCase
 {
@@ -99,6 +98,30 @@ class PaymentRequestTest extends TestCase
     }
 
     /**
+     * @covers ::getIntent
+     * @covers ::setIntent
+     */
+    public function testIntent()
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+
+        $this->assertSame($request, $request->setIntent('intent'));
+        $this->assertSame('intent', $request->getIntent());
+    }
+
+    /**
+     * @covers ::getPayerId
+     * @covers ::setPayerId
+     */
+    public function testPayerId()
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+
+        $this->assertSame($request, $request->setPayerId('payerid'));
+        $this->assertSame('payerid', $request->getPayerId());
+    }
+
+    /**
      * @covers ::getTransactionData
      * @dataProvider dataGetTransationData
      */
@@ -173,6 +196,35 @@ class PaymentRequestTest extends TestCase
         $this->assertEquals($expected, $data);
     }
 
+    public function dataGetRequiredRedirect()
+    {
+        return array(
+            array(
+                array(),
+                true,
+            ),
+            array(
+                array('card' => $this->getValidCard()),
+                false,
+            ),
+            array(
+                array('cardReference' => 'asds'),
+                false,
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider dataGetRequiredRedirect
+     * @covers ::getRequiredRedirect
+     */
+    public function testGetRequiredRedirect($parameters, $expected)
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize($parameters);
+
+        $this->assertEquals($expected, $request->getRequiredRedirect());
+    }
 
     public function dataGetPayerCardReferenceData()
     {
@@ -214,6 +266,7 @@ class PaymentRequestTest extends TestCase
 
     /**
      * @dataProvider dataGetPayerCardReferenceData
+     * @covers ::getPayerCardReferenceData
      */
     public function testGetPayerCardReferenceData($parameters, $expected, $exception)
     {
@@ -338,6 +391,7 @@ class PaymentRequestTest extends TestCase
      * @covers ::getPayerCardData
      * @covers ::getPayerCardReferenceData
      * @covers ::getPayerPaypalData
+     * @covers ::getPayerData
      */
     public function testGetPayerData($parameters, $expectedMethod)
     {
@@ -359,6 +413,16 @@ class PaymentRequestTest extends TestCase
         $this->assertEquals(array('return' => true), $data);
     }
 
+    public function testGetDataInvalid()
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array('intent' => 'test'));
+
+        $this->setExpectedException('Omnipay\Common\Exception\InvalidRequestException', 'Intent can only be "sale" or "authorize"');
+
+        $data = $request->getData();
+    }
+
     /**
      * @covers ::getData
      */
@@ -370,13 +434,13 @@ class PaymentRequestTest extends TestCase
             [$this->getHttpClient(), $this->getHttpRequest()]
         );
 
-        $request->initialize(array('intent' => 'authorise'));
+        $request->initialize(array('intent' => 'authorize'));
 
         $data1 = array('return1' => true, 'nested' => array('test' => false));
         $data2 = array('return2' => false, 'nested' => array('param' => 12));
 
         $expected = array(
-            'intent' => 'authorise',
+            'intent' => 'authorize',
             'return1' => true,
             'return2' => false,
             'nested' => array(
@@ -395,9 +459,46 @@ class PaymentRequestTest extends TestCase
             ->method('getTransactionData')
             ->will($this->returnValue($data2));
 
-
         $data = $request->getData();
 
         $this->assertEquals($expected, $data);
+    }
+
+    /**
+     * @covers ::sendData
+     */
+    public function testSendData()
+    {
+        $request = $this->getMock(
+            'Omnipay\PaypalRest\Message\PaymentRequest',
+            ['sendHttpRequest', 'getRequiredRedirect'],
+            [$this->getHttpClient(), $this->getHttpRequest()]
+        );
+
+        $data = array('data' => 1);
+
+        $request
+            ->expects($this->exactly(2))
+            ->method('sendHttpRequest')
+            ->with($this->identicalTo($data))
+            ->will($this->returnValue(
+                new Response(201, array('Content-Type' => 'application/json'), '')
+            ));
+
+        $request
+            ->expects($this->exactly(2))
+            ->method('getRequiredRedirect')
+            ->will($this->onConsecutiveCalls(true, false));
+
+        $response = $request->sendData($data);
+
+        $this->assertInstanceOf('Omnipay\PaypalRest\Message\PaymentApproveResponse', $response);
+        $this->assertEquals(array(), $response->getData());
+
+        $response = $request->sendData($data);
+
+        $this->assertInstanceOf('Omnipay\PaypalRest\Message\PaymentResponse', $response);
+        $this->assertEquals(array(), $response->getData());
+
     }
 }

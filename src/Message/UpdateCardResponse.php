@@ -9,8 +9,15 @@ namespace Omnipay\PaypalRest\Message;
  */
 class UpdateCardResponse extends AbstractResponse
 {
+    /**
+     * Return true if state is "ok"
+     *
+     * @return boolean
+     */
     public function isSuccessful()
     {
-        return (parent::isSuccessful() and $this->data['state'] === 'ok');
+        return (parent::isSuccessful()
+            and isset($this->data['state'])
+            and $this->data['state'] === 'ok');
     }
 }

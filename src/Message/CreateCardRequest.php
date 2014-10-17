@@ -19,6 +19,9 @@ class CreateCardRequest extends AbstractPaypalRequest
         return '/vault/credit-card';
     }
 
+    /**
+     * @return string
+     */
     public function getHttpMethod()
     {
         return 'POST';
@@ -41,11 +44,11 @@ class CreateCardRequest extends AbstractPaypalRequest
     }
     /**
      * @param  mixed $data
-     * @return \Omnipay\PaypalRest\Message\PurchaseResponse
+     * @return Omnipay\PaypalRest\Message\CreateCardResponse
      */
     public function sendData($data)
     {
-        $httpResponse = parent::sendData($data);
+        $httpResponse = $this->sendHttpRequest($data);
 
         return $this->response = new CreateCardResponse(
             $this,
@@ -54,6 +57,9 @@ class CreateCardRequest extends AbstractPaypalRequest
         );
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         $data = $this->getPaypalCard();

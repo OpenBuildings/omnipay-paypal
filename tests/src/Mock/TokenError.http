@@ -1,0 +1,10 @@
+HTTP/1.1 401 Unauthorized
+Server: Apache-Coyote/1.1
+PROXY_SERVER_INFO: host=slcsbjava3.slc.paypal.com;threadId=237
+Paypal-Debug-Id: d2ea9d1ef40dc
+SERVER_INFO: identitysecuretokenserv:v1.oauth2.token&CalThreadId=209&TopLevelTxnStartTime=1491e7f63e8&Host=slcsbidensectoken501.slc.paypal.com&pid=7606
+Date: Fri, 17 Oct 2014 14:25:05 GMT
+Content-Type: application/json
+Content-Length: 75
+
+{"error":"invalid_client","error_description":"Invalid client credentials"}
