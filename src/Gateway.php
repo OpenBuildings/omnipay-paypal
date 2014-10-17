@@ -184,7 +184,7 @@ class Gateway extends AbstractGateway
 
     /**
      * @param  array  $parameters
-     * @return Omnipay\Emp\Message\PaymentCompleteRequest
+     * @return Omnipay\PaypalRest\Message\PaymentCompleteRequest
      */
     public function completePurchase(array $parameters = array())
     {
