@@ -23,7 +23,7 @@ class AnstractResponseTest extends TestCase
         $request = new TokenRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array('data' => 1), 204]
+            array($request, array('data' => 1), 204)
         );
 
         $this->assertSame(204, $response->getCode());
@@ -37,14 +37,14 @@ class AnstractResponseTest extends TestCase
         $request = new TokenRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array('id' => 'asdasd')]
+            array($request, array('id' => 'asdasd'))
         );
 
         $this->assertSame('asdasd', $response->getTransactionReference());
 
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array()]
+            array($request, array())
         );
 
         $this->assertNull($response->getTransactionReference());
@@ -58,14 +58,14 @@ class AnstractResponseTest extends TestCase
         $request = new TokenRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array('status' => 'asdasd')]
+            array($request, array('status' => 'asdasd'))
         );
 
         $this->assertSame('asdasd', $response->getStatus());
 
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array()]
+            array($request, array())
         );
 
         $this->assertNull($response->getStatus());
@@ -94,7 +94,7 @@ class AnstractResponseTest extends TestCase
         $request = new TokenRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, array(), $status]
+            array($request, array(), $status)
         );
 
         $this->assertSame($expected, $response->isSuccessful());
@@ -131,7 +131,7 @@ class AnstractResponseTest extends TestCase
         $request = new TokenRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractResponse',
-            [$request, $data]
+            array($request, $data)
         );
 
         $this->assertSame($expected, $response->getMessage());
