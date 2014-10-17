@@ -23,7 +23,7 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->initialize();
@@ -32,7 +32,7 @@ class AbstractPaypalRequestTest extends TestCase
 
         $request2 = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request2->initialize();
@@ -47,7 +47,7 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $this->assertEquals('POST', $request->getHttpMethod());
@@ -63,7 +63,7 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $this->assertSame($request, $request->setRequestId('requestid'));
@@ -78,7 +78,7 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $this->assertSame($request, $request->setToken('token'));
@@ -92,7 +92,7 @@ class AbstractPaypalRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractPaypalRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->initialize(array(

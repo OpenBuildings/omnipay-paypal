@@ -21,7 +21,7 @@ class AbstractRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $this->assertSame(AbstractRequest::LIVE, $request->getServer());
@@ -38,7 +38,7 @@ class AbstractRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->setCard(array(
@@ -92,7 +92,7 @@ class AbstractRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $this->setExpectedException('Omnipay\Common\Exception\InvalidRequestException', 'The card parameter is required');
@@ -107,7 +107,7 @@ class AbstractRequestTest extends TestCase
     {
         $request = $this->getMockForAbstractClass(
             'Omnipay\PaypalRest\Message\AbstractRequest',
-            [$this->getHttpClient(), $this->getHttpRequest()]
+            array($this->getHttpClient(), $this->getHttpRequest())
         );
 
         $request->setCard(array(
