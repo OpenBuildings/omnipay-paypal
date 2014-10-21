@@ -121,6 +121,18 @@ class PaymentResponseTest extends TestCase
         );
     }
 
+    /**
+     * @dataProvider dataGetIntent
+     * @covers ::getIntent
+     */
+    public function testGetIntent($data, $expected)
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $response = new PaymentResponse($request, $data);
+
+        $this->assertSame($expected, $response->getIntent());
+    }
+
     public function dataGetTransactionReference()
     {
         return array(
