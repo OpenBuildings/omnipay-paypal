@@ -82,7 +82,7 @@ class TokenRequest extends AbstractRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed         $data
      * @return TokenResponse
      */
     public function sendData($data)

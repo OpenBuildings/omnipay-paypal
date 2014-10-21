@@ -48,7 +48,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array $parameters
      * @return self
      */
     public function initialize(array $parameters = array())
@@ -95,7 +95,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     }
 
     /**
-     * @param  array  $data
+     * @param  array                                 $data
      * @return \Guzzle\Http\Message\RequestInterface
      */
     public function getHttpRequest(array $data)
@@ -113,7 +113,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     }
 
     /**
-     * @param  array  $data
+     * @param  array                         $data
      * @return \Guzzle\Http\Message\Response
      */
     public function sendHttpRequest(array $data)

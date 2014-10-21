@@ -41,7 +41,7 @@ class VoidRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed        $data
      * @return VoidResponse
      */
     public function sendData($data)

@@ -52,7 +52,7 @@ class PaymentRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed                                      $data
      * @return Omnipay\PaypalRest\Message\PaymentResponse
      */
     public function sendData($data)

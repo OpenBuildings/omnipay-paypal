@@ -63,7 +63,7 @@ class RefundRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed          $data
      * @return RefundResponse
      */
     public function sendData($data)

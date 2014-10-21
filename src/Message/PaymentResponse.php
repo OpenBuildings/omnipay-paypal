@@ -22,6 +22,8 @@ class PaymentResponse extends AbstractResponse
     }
 
     /**
+     * @param integer $index
+     * @param string $type
      * @return string|null
      */
     public function getRelatedResourceId($index, $type)

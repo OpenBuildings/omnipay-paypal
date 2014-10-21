@@ -60,7 +60,7 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed           $data
      * @return PaymentResponse
      */
     public function sendData($data)

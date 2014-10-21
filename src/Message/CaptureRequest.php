@@ -62,7 +62,7 @@ class CaptureRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed           $data
      * @return CaptureResponse
      */
     public function sendData($data)

@@ -27,7 +27,7 @@ class DeleteCardRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed                                          $data
      * @return \Omnipay\PaypalRest\Message\DeleteCardResponse
      */
     public function sendData($data)

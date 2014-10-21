@@ -28,7 +28,7 @@ class UpdateCardRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @param  mixed $data
+     * @param  mixed              $data
      * @return UpdateCardResponse
      */
     public function sendData($data)

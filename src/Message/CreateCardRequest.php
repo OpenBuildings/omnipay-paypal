@@ -41,7 +41,7 @@ class CreateCardRequest extends AbstractPaypalRequest
         return $this->setParameter('payerId', $value);
     }
     /**
-     * @param  mixed $data
+     * @param  mixed              $data
      * @return CreateCardResponse
      */
     public function sendData($data)
