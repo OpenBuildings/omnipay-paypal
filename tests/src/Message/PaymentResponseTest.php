@@ -140,8 +140,8 @@ class PaymentResponseTest extends TestCase
         $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
         $response = $this->getMock(
             'Omnipay\PaypalRest\Message\PaymentResponse',
-            ['getIntent', 'getRelatedResourceId'],
-            [$request, array()]
+            array('getIntent', 'getRelatedResourceId'),
+            array($request, array())
         );
 
         if ($intent) {
