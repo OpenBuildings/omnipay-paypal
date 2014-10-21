@@ -24,18 +24,34 @@ class PaymentResponse extends AbstractResponse
     /**
      * @return string|null
      */
+    public function getRelatedResourceId($index, $type)
+    {
+        if (isset($this->data['transactions'][0]['related_resources'][$index][$type]['id'])) {
+            return $this->data['transactions'][0]['related_resources'][$index][$type]['id'];
+        }
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIntent()
+    {
+        if (isset($this->data['intent'])) {
+            return $this->data['intent'];
+        }
+    }
+
+    /**
+     * @return string|null
+     */
     public function getTransactionReference()
     {
-        if (isset($this->data['intent'])
-            and $this->data['intent'] === 'sale'
-            and isset($this->data['transactions'][0]['related_resources'][0]['sale']['id'])) {
-            return $this->data['transactions'][0]['related_resources'][0]['sale']['id'];
+        if ($this->getIntent() === 'sale') {
+            return $this->getRelatedResourceId(0, 'sale');
         }
 
-        if (isset($this->data['intent'])
-            and $this->data['intent'] === 'authorize'
-            and isset($this->data['transactions'][0]['related_resources'][0]['authorization']['id'])) {
-            return $this->data['transactions'][0]['related_resources'][0]['authorization']['id'];
+        if ($this->getIntent() === 'authorize') {
+            return $this->getRelatedResourceId(0, 'authorization');
         }
     }
 }

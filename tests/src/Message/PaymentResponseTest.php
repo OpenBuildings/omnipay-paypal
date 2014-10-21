@@ -37,12 +37,14 @@ class PaymentResponseTest extends TestCase
         $this->assertSame($expected, $response->isSuccessful());
     }
 
-    public function dataGetTransactionReference()
+    public function dataGetRelatedResourceId()
     {
         return array(
             // Empty
             array(
                 array(),
+                null,
+                null,
                 null
             ),
             // Authorization
@@ -66,6 +68,8 @@ class PaymentResponseTest extends TestCase
                         ),
                     ),
                 ),
+                0,
+                'authorization',
                 '1SN458127W2399139'
             ),
             // Sale
@@ -89,18 +93,71 @@ class PaymentResponseTest extends TestCase
                         ),
                     ),
                 ),
+                0,
+                'sale',
                 '1SN458127W2399139'
             ),
         );
     }
+
+    /**
+     * @dataProvider dataGetRelatedResourceId
+     * @covers ::getRelatedResourceId
+     */
+    public function testGetRelatedResourceId($data, $index, $type, $expected)
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $response = new PaymentResponse($request, $data);
+
+        $this->assertSame($expected, $response->getRelatedResourceId($index, $type));
+    }
+
+    public function dataGetIntent()
+    {
+        return array(
+            array(array(), null),
+            array(array('intent' => 'sale'), 'sale'),
+            array(array('intent' => 'authorization'), 'authorization'),
+        );
+    }
+
+    public function dataGetTransactionReference()
+    {
+        return array(
+            array(null, null, null, null),
+            array('sale', 'sale', 12, 12),
+            array('authorize', 'authorization', 10, 10),
+            array('authorize', 'authorization', null, null),
+        );
+    }
+
     /**
      * @dataProvider dataGetTransactionReference
      * @covers ::getTransactionReference
      */
-    public function testGetTransactionReference($data, $expected)
+    public function testGetTransactionReference($intent, $type, $relatedResourceId, $expected)
     {
         $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
-        $response = new PaymentResponse($request, $data);
+        $response = $this->getMock(
+            'Omnipay\PaypalRest\Message\PaymentResponse',
+            ['getIntent', 'getRelatedResourceId'],
+            [$request, array()]
+        );
+
+        if ($intent) {
+            $response
+                ->expects($this->atLeastOnce())
+                ->method('getIntent')
+                ->will($this->returnValue($intent));
+        }
+
+        if ($relatedResourceId) {
+            $response
+                ->expects($this->once())
+                ->method('getRelatedResourceId')
+                ->with($this->equalTo(0), $this->equalTo($type))
+                ->will($this->returnValue($relatedResourceId));
+        }
 
         $this->assertSame($expected, $response->getTransactionReference());
     }

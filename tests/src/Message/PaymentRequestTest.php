@@ -25,7 +25,7 @@ class PaymentRequestTest extends TestCase
         $this->assertEquals('/payments/payment', $request->getEndpoint());
     }
 
-    public function dataGetTransationData()
+    public function dataGetTransactionData()
     {
         return array(
             // With items
@@ -98,6 +98,86 @@ class PaymentRequestTest extends TestCase
     }
 
     /**
+     * @covers ::getTransactionData
+     * @dataProvider dataGetTransactionData
+     */
+    public function testGetTransactionData($parameters, $expected)
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize($parameters);
+
+        $data = $request->getTransactionData();
+
+        $this->assertEquals($expected, $data);
+    }
+
+    public function dataGetItemsData()
+    {
+        return array(
+            // With items
+            array(
+                array(
+                    'currency' => 'GBP',
+                    'items' => array(
+                        array(
+                            'name' => 'Product 1',
+                            'price' => '5.00',
+                            'description' => 'Product 1 Desc',
+                            'quantity' => 2
+                        ),
+                        array(
+                            'name' => 'Shipping for Product 1',
+                            'price' => '5.00',
+                            'description' => 'Shipping for Product 1 Desc',
+                            'quantity' => 1
+                        ),
+                    ),
+                ),
+                array(
+                    'items' => array(
+                        array(
+                            'name' => 'Product 1',
+                            'quantity' => 2,
+                            'price' => '5.00',
+                            'description' => 'Product 1 Desc',
+                            'currency' => 'GBP',
+                        ),
+                        array(
+                            'name' => 'Shipping for Product 1',
+                            'quantity' => 1,
+                            'price' => '5.00',
+                            'description' => 'Shipping for Product 1 Desc',
+                            'currency' => 'GBP',
+                        ),
+                    ),
+                ),
+            ),
+            // Without items
+            array(
+                array(
+                    'amount' => '10.00',
+                    'currency' => 'GBP',
+                ),
+                array(),
+            ),
+        );
+    }
+
+    /**
+     * @covers ::getItemsData
+     * @dataProvider dataGetItemsData
+     */
+    public function testGetItemsData($parameters, $expected)
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize($parameters);
+
+        $data = $request->getItemsData();
+
+        $this->assertEquals($expected, $data);
+    }
+
+    /**
      * @covers ::getIntent
      * @covers ::setIntent
      */
@@ -119,20 +199,6 @@ class PaymentRequestTest extends TestCase
 
         $this->assertSame($request, $request->setPayerId('payerid'));
         $this->assertSame('payerid', $request->getPayerId());
-    }
-
-    /**
-     * @covers ::getTransactionData
-     * @dataProvider dataGetTransationData
-     */
-    public function testGetTransactionData($parameters, $expected)
-    {
-        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize($parameters);
-
-        $data = $request->getTransactionData();
-
-        $this->assertEquals($expected, $data);
     }
 
     public function dataGetPayerPaypalData()

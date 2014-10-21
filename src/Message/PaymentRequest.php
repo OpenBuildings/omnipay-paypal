@@ -75,13 +75,10 @@ class PaymentRequest extends AbstractPaypalRequest
     }
 
     /**
-     * @return array
+     * array|null
      */
-    public function getTransactionData()
+    public function getItemsData()
     {
-        $this->validate('currency', 'amount');
-
-        $currency = $this->getCurrency();
         $item_list = array();
 
         if ($this->getItems()) {
@@ -91,10 +88,20 @@ class PaymentRequest extends AbstractPaypalRequest
                     'quantity' => $item->getQuantity(),
                     'price' => $item->getPrice(),
                     'description' => mb_strimwidth($item->getDescription(), 0, 126, '…'),
-                    'currency' => $currency,
+                    'currency' => $this->getCurrency(),
                 );
             }
         }
+
+        return $item_list;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransactionData()
+    {
+        $this->validate('currency', 'amount');
 
         return array(
             'transactions' => array(
@@ -102,9 +109,9 @@ class PaymentRequest extends AbstractPaypalRequest
                     'description' => $this->getDescription(),
                     'amount' => array(
                         'total' => $this->getAmount(),
-                        'currency' => $currency,
+                        'currency' => $this->getCurrency(),
                     ),
-                    'item_list' => $item_list
+                    'item_list' => $this->getItemsData()
                 ))
             ),
         );
