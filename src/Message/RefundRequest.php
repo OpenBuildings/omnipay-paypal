@@ -2,7 +2,6 @@
 
 namespace Omnipay\PaypalRest\Message;
 
-use Omnipay\Common\Item;
 use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
@@ -65,7 +64,7 @@ class RefundRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return Omnipay\PaypalRest\Message\RefundResponse
+     * @return RefundResponse
      */
     public function sendData($data)
     {

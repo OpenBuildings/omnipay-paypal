@@ -29,14 +29,12 @@ class PaymentResponse extends AbstractResponse
         if (isset($this->data['intent'])
             and $this->data['intent'] === 'sale'
             and isset($this->data['transactions'][0]['related_resources'][0]['sale']['id'])) {
-
             return $this->data['transactions'][0]['related_resources'][0]['sale']['id'];
         }
 
         if (isset($this->data['intent'])
             and $this->data['intent'] === 'authorize'
             and isset($this->data['transactions'][0]['related_resources'][0]['authorization']['id'])) {
-
             return $this->data['transactions'][0]['related_resources'][0]['authorization']['id'];
         }
     }

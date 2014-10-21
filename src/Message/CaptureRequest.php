@@ -2,8 +2,6 @@
 
 namespace Omnipay\PaypalRest\Message;
 
-use Omnipay\Common\Item;
-
 /**
  * @author    Ivan Kerin <ikerin@gmail.com>
  * @copyright 2014, Clippings Ltd.
@@ -65,7 +63,7 @@ class CaptureRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return Omnipay\PaypalRest\Message\CaptureResponse
+     * @return CaptureResponse
      */
     public function sendData($data)
     {

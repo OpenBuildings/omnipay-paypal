@@ -12,7 +12,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
     /**
      * @return string
      */
-    abstract function getEndpoint();
+    abstract public function getEndpoint();
 
     /**
      * From Official Paypal SDK
@@ -29,7 +29,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
         }
 
         if ($addr == -1) {
-            if(array_key_exists('SERVER_ADDR', $_SERVER)) {
+            if (array_key_exists('SERVER_ADDR', $_SERVER)) {
                 $addr = ip2long($_SERVER['SERVER_ADDR']);
             } else {
                 $addr  = php_uname('n');
@@ -96,7 +96,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
 
     /**
      * @param  array  $data
-     * @return Guzzle\Http\Message\Request
+     * @return \Guzzle\Http\Message\RequestInterface
      */
     public function getHttpRequest(array $data)
     {
@@ -114,7 +114,7 @@ abstract class AbstractPaypalRequest extends AbstractRequest
 
     /**
      * @param  array  $data
-     * @return Guzzle\Http\Message\Response
+     * @return \Guzzle\Http\Message\Response
      */
     public function sendHttpRequest(array $data)
     {

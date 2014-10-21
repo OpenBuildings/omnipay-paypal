@@ -12,7 +12,7 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 class PaymentApproveResponse extends AbstractResponse implements RedirectResponseInterface
 {
     /**
-     * @param  string $rel
+     * @param  string     $rel
      * @return array|null
      */
     public function getLink($rel)

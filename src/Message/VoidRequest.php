@@ -2,8 +2,6 @@
 
 namespace Omnipay\PaypalRest\Message;
 
-use Omnipay\Common\Item;
-
 /**
  * @author    Ivan Kerin <ikerin@gmail.com>
  * @copyright 2014, Clippings Ltd.
@@ -44,7 +42,7 @@ class VoidRequest extends AbstractPaypalRequest
 
     /**
      * @param  mixed $data
-     * @return Omnipay\PaypalRest\Message\VoidResponse
+     * @return VoidResponse
      */
     public function sendData($data)
     {

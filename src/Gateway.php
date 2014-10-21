@@ -129,7 +129,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param string $value
+     * @param  string $value
      * @return self
      */
     public function setToken($value)
@@ -151,8 +151,8 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  string $class
-     * @param  array  $parameters
+     * @param  string                                     $class
+     * @param  array                                      $parameters
      * @return Omnipay\PaypalRest\Message\AbstractRequest
      */
     public function createRequestWithToken($class, array $parameters)
@@ -163,7 +163,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                   $parameters
      * @return Omnipay\PaypalRest\Message\TokenRequest
      */
     public function token(array $parameters = array())
@@ -172,7 +172,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                     $parameters
      * @return Omnipay\PaypalRest\Message\PaymentRequest
      */
     public function purchase(array $parameters = array())
@@ -183,7 +183,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                             $parameters
      * @return Omnipay\PaypalRest\Message\PaymentCompleteRequest
      */
     public function completePurchase(array $parameters = array())
@@ -192,7 +192,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                     $parameters
      * @return Omnipay\PaypalRest\Message\PaymentRequest
      */
     public function authorise(array $parameters = array())
@@ -203,7 +203,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                             $parameters
      * @return Omnipay\PaypalRest\Message\PaymentCompleteRequest
      */
     public function completeAuthorise(array $parameters = array())
@@ -212,7 +212,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                     $parameters
      * @return Omnipay\PaypalRest\Message\CaptureRequest
      */
     public function capture(array $parameters = array())
@@ -221,7 +221,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                  $parameters
      * @return Omnipay\PaypalRest\Message\VoidRequest
      */
     public function void(array $parameters = array())
@@ -230,7 +230,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                        $parameters
      * @return Omnipay\PaypalRest\Message\CreateCardRequest
      */
     public function createCard(array $parameters = array())
@@ -239,7 +239,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                        $parameters
      * @return Omnipay\PaypalRest\Message\DeleteCardRequest
      */
     public function deleteCard(array $parameters = array())
@@ -248,7 +248,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                        $parameters
      * @return Omnipay\PaypalRest\Message\UpdateCardRequest
      */
     public function updateCard(array $parameters = array())
@@ -257,7 +257,7 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * @param  array  $parameters
+     * @param  array                                    $parameters
      * @return Omnipay\PaypalRest\Message\RefundRequest
      */
     public function refund(array $parameters = array())

@@ -14,7 +14,7 @@ class TokenResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return (parent::isSuccessful() AND isset($this->data['access_token']));
+        return (parent::isSuccessful() and isset($this->data['access_token']));
     }
 
     /**
@@ -58,7 +58,7 @@ class TokenResponse extends AbstractResponse
     }
 
     /**
-     * @return string|null
+     * @return integer|null
      */
     public function getExpires()
     {

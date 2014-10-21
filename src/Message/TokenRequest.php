@@ -58,7 +58,7 @@ class TokenRequest extends AbstractRequest
     }
 
     /**
-     * @return Guzzle\Http\Message\Response
+     * @return \Guzzle\Http\Message\Response
      */
     public function sendHttpRequest()
     {
@@ -66,7 +66,7 @@ class TokenRequest extends AbstractRequest
     }
 
     /**
-     * @return Guzzle\Http\Message\Request
+     * @return \Guzzle\Http\Message\EntityEnclosingRequestInterface
      */
     public function getHttpRequest()
     {
@@ -83,7 +83,7 @@ class TokenRequest extends AbstractRequest
 
     /**
      * @param  mixed $data
-     * @return array
+     * @return TokenResponse
      */
     public function sendData($data)
     {

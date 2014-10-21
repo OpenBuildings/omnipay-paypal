@@ -2,9 +2,7 @@
 
 namespace Omnipay\PaypalRest\Message;
 
-use Omnipay\Common\Item;
 use Omnipay\Common\Exception\InvalidRequestException;
-use Omnipay\PaypalRest\CreditCard;
 
 /**
  * @author    Ivan Kerin <ikerin@gmail.com>
