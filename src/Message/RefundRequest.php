@@ -16,34 +16,18 @@ class RefundRequest extends AbstractPaypalRequest
      */
     public function getEndpoint()
     {
-        $this->validate('purchaseId', 'type');
+        $this->validate('transactionReference', 'type');
 
         if (false === in_array($this->getType(), array('sale', 'authorization', 'capture'))) {
             throw new InvalidRequestException('Type can only be "sale", "authorization" or "capture"');
         }
 
-        return "/payments/{$this->getType()}/{$this->getPurchaseId()}/refund";
+        return "/payments/{$this->getType()}/{$this->getTransactionReference()}/refund";
     }
 
     public function getHttpMethod()
     {
         return 'POST';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPurchaseId()
-    {
-        return $this->getParameter('purchaseId');
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setPurchaseId($value)
-    {
-        return $this->setParameter('purchaseId', $value);
     }
 
     /**

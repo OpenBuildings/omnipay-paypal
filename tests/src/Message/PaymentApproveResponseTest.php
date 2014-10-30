@@ -15,26 +15,15 @@ use Omnipay\PaypalRest\Message\PaymentApproveResponse;
  */
 class PaymentApproveResponseTest extends TestCase
 {
-    public function dataIsSuccessful()
-    {
-        return array(
-            array(array(), 200, false),
-            array(array('state' => 'voided'), 200, false),
-            array(array('state' => 'created'), 401, false),
-            array(array('state' => 'created'), 201, true),
-        );
-    }
-
     /**
-     * @dataProvider dataIsSuccessful
      * @covers ::isSuccessful
      */
-    public function testIsSuccessful($data, $status, $expected)
+    public function testIsSuccessful()
     {
         $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
-        $response = new PaymentApproveResponse($request, $data, $status);
+        $response = new PaymentApproveResponse($request, array());
 
-        $this->assertSame($expected, $response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
     }
 
     public function dataGetLink()
@@ -92,6 +81,36 @@ class PaymentApproveResponseTest extends TestCase
         $response = new PaymentApproveResponse($request, $data);
 
         $this->assertSame($expected, $response->getLink($link));
+    }
+
+    /**
+     * @covers ::isRedirect
+     */
+    public function testIsRedirect()
+    {
+        $request = new PaymentRequest($this->getHttpClient(), $this->getHttpRequest());
+        $response = $this->getMock(
+            'Omnipay\PaypalRest\Message\PaymentApproveResponse',
+            array('getLink'),
+            array($request, array())
+        );
+
+        $response
+            ->expects($this->exactly(2))
+            ->method('getLink')
+            ->with($this->identicalTo('approval_url'))
+            ->will($this->onConsecutiveCalls(
+                null,
+                array(
+                    'href' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-5SD087658M435925N',
+                    'rel' => 'approval_url',
+                    'method' => 'REDIRECT'
+                )
+            ));
+
+        $this->assertFalse($response->isRedirect());
+
+        $this->assertTrue($response->isRedirect());
     }
 
     /**

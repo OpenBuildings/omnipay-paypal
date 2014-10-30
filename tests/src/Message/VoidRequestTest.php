@@ -21,7 +21,7 @@ class VoidRequestTest extends TestCase
     public function testGetEndpoint()
     {
         $request = new VoidRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array('purchaseId' => 'id-12'));
+        $request->initialize(array('transactionReference' => 'id-12'));
 
         $this->assertEquals('/payments/authorization/id-12/void', $request->getEndpoint());
     }
@@ -35,7 +35,7 @@ class VoidRequestTest extends TestCase
 
         $this->setExpectedException(
             'Omnipay\Common\Exception\InvalidRequestException',
-            'The purchaseId parameter is required'
+            'The transactionReference parameter is required'
         );
 
         $request->getEndpoint();
@@ -49,18 +49,6 @@ class VoidRequestTest extends TestCase
         $request = new VoidRequest($this->getHttpClient(), $this->getHttpRequest());
 
         $this->assertEquals('POST', $request->getHttpMethod());
-    }
-
-    /**
-     * @covers ::getPurchaseId
-     * @covers ::setPurchaseId
-     */
-    public function testPurchaseId()
-    {
-        $request = new VoidRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->assertSame($request, $request->setPurchaseId('purchaseid'));
-        $this->assertSame('purchaseid', $request->getPurchaseId());
     }
 
     /**
