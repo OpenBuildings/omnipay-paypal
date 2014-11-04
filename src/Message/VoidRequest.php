@@ -14,30 +14,14 @@ class VoidRequest extends AbstractPaypalRequest
      */
     public function getEndpoint()
     {
-        $this->validate('purchaseId');
+        $this->validate('transactionReference');
 
-        return '/payments/authorization/'.$this->getPurchaseId().'/void';
+        return '/payments/authorization/'.$this->getTransactionReference().'/void';
     }
 
     public function getHttpMethod()
     {
         return 'POST';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPurchaseId()
-    {
-        return $this->getParameter('purchaseId');
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setPurchaseId($value)
-    {
-        return $this->setParameter('purchaseId', $value);
     }
 
     /**

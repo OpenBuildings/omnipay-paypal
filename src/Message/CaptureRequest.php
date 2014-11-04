@@ -10,15 +10,15 @@ namespace Omnipay\PaypalRest\Message;
 class CaptureRequest extends AbstractPaypalRequest
 {
     /**
-     * Requires "purchaseId" parameter
+     * Requires "transactionReference" parameter
      *
      * @return string
      */
     public function getEndpoint()
     {
-        $this->validate('purchaseId');
+        $this->validate('transactionReference');
 
-        return "/payments/authorization/{$this->getPurchaseId()}/capture";
+        return "/payments/authorization/{$this->getTransactionReference()}/capture";
     }
 
     /**
@@ -27,22 +27,6 @@ class CaptureRequest extends AbstractPaypalRequest
     public function getHttpMethod()
     {
         return 'POST';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPurchaseId()
-    {
-        return $this->getParameter('purchaseId');
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setPurchaseId($value)
-    {
-        return $this->setParameter('purchaseId', $value);
     }
 
     /**

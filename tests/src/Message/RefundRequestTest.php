@@ -19,32 +19,32 @@ class RefundRequestTest extends TestCase
     {
         return array(
             array(
-                array('purchaseId' => 'id-12', 'type' => 'sale'),
+                array('transactionReference' => 'id-12', 'type' => 'sale'),
                 '/payments/sale/id-12/refund',
                 null,
             ),
             array(
-                array('purchaseId' => 'id-12', 'type' => 'capture'),
+                array('transactionReference' => 'id-12', 'type' => 'capture'),
                 '/payments/capture/id-12/refund',
                 null,
             ),
             array(
-                array('purchaseId' => 'id-12', 'type' => 'authorization'),
+                array('transactionReference' => 'id-12', 'type' => 'authorization'),
                 '/payments/authorization/id-12/refund',
                 null,
             ),
             array(
-                array('purchaseId' => 'id-12', 'type' => 'authorization'),
+                array('transactionReference' => 'id-12', 'type' => 'authorization'),
                 '/payments/authorization/id-12/refund',
                 null,
             ),
             array(
                 array('type' => 'sale'),
                 null,
-                'The purchaseId parameter is required'
+                'The transactionReference parameter is required'
             ),
             array(
-                array('purchaseId' => 'id-12', 'type' => 'test'),
+                array('transactionReference' => 'id-12', 'type' => 'test'),
                 null,
                 'Type can only be "sale", "authorization" or "capture"'
             ),
@@ -78,18 +78,6 @@ class RefundRequestTest extends TestCase
         $request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
 
         $this->assertEquals('POST', $request->getHttpMethod());
-    }
-
-    /**
-     * @covers ::getPurchaseId
-     * @covers ::setPurchaseId
-     */
-    public function testPurchaseId()
-    {
-        $request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->assertSame($request, $request->setPurchaseId('purchaseid'));
-        $this->assertSame('purchaseid', $request->getPurchaseId());
     }
 
     /**

@@ -29,15 +29,18 @@ class PaymentApproveResponse extends AbstractResponse implements RedirectRespons
     }
 
     /**
-     * Return true if state is "created"
+     * Return false, because this is a redirect response
      *
      * @return boolean
      */
     public function isSuccessful()
     {
-        return (parent::isSuccessful()
-            and isset($this->data['state'])
-            and $this->data['state'] === 'created');
+        return false;
+    }
+
+    public function isRedirect()
+    {
+        return $this->getLink('approval_url') !== null;
     }
 
     /**

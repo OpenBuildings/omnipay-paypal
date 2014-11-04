@@ -83,7 +83,7 @@ $key = $response->getTransactionReference();
 // You'll need to pass $key as well as "payerid" query parameter that you'll get from paypal redirecting back to your site
 
 $completePurchase = $gateway->completePurchase(array(
-    'purchaseId' => $key,
+    'transactionReference' => $key,
     'payerId' => $_GET['PAYERID'],
 ));
 
@@ -140,7 +140,7 @@ $response = $authorise->send();
 $id = $response->getTransactionReference();
 
 $capture = $gateway->capture(array(
-    'purchaseId' => $id,
+    'transactionReference' => $id,
     'amount' => '15.00',
 ));
 
@@ -149,7 +149,7 @@ $capture->send();
 // Or
 
 $capture = $gateway->void(array(
-    'purchaseId' => $id,
+    'transactionReference' => $id,
 ));
 
 $capture->send();
@@ -161,14 +161,14 @@ Refund
 
 ```
 $refund = $gateway->refund(array(
-    'purchaseId' => $id,
+    'transactionReference' => $id,
 ));
 
 $refund->send();
 
 // If you are refunding a capture
 $refund = $gateway->refund(array(
-    'purchaseId' => $id,
+    'transactionReference' => $id,
     'type' => 'capture'
 ));
 
@@ -176,7 +176,7 @@ $refund->send();
 
 // Partial refund
 $refund = $gateway->refund(array(
-    'purchaseId' => $id,
+    'transactionReference' => $id,
     'amount' => '10.00'
     'currency' => 'GBP'
 ));

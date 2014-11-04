@@ -51,7 +51,8 @@ class PurchaseMockTest extends TestCase
         $response = $request->send();
 
         $this->assertInstanceOf('Omnipay\PaypalRest\Message\PaymentApproveResponse', $response);
-        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
 
         $this->assertEquals('PAY-7N5239784Y302191WKQ72KJI', $response->getTransactionReference());
         $this->assertEquals('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2PU56195M4518381J', $response->getRedirectUrl());
@@ -67,7 +68,7 @@ class PurchaseMockTest extends TestCase
 
         $request = new PaymentCompleteRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
-            'purchaseId' => 'PAY-7N5239784Y302191WKQ72KJI',
+            'transactionReference' => 'PAY-7N5239784Y302191WKQ72KJI',
             'payerId' => 'HVMBSS6TABKJN',
         ));
 
@@ -137,7 +138,7 @@ class PurchaseMockTest extends TestCase
         $request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
             'type' => 'sale',
-            'purchaseId' => '92M94738P51857122',
+            'transactionReference' => '92M94738P51857122',
             'currency' => 'USD',
             'amount' => '1.50',
         ));

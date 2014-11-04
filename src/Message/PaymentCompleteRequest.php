@@ -14,9 +14,9 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
      */
     public function getEndpoint()
     {
-        $this->validate('purchaseId');
+        $this->validate('transactionReference');
 
-        return "/payments/payment/{$this->getPurchaseId()}/execute";
+        return "/payments/payment/{$this->getTransactionReference()}/execute";
     }
 
     /**
@@ -25,22 +25,6 @@ class PaymentCompleteRequest extends AbstractPaypalRequest
     public function getHttpMethod()
     {
         return 'POST';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPurchaseId()
-    {
-        return $this->getParameter('purchaseId');
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setPurchaseId($value)
-    {
-        return $this->setParameter('purchaseId', $value);
     }
 
     /**

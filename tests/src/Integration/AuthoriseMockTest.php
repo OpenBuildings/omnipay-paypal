@@ -39,7 +39,8 @@ class AuthoriseMockTest extends TestCase
         $response = $request->send();
 
         $this->assertInstanceOf('Omnipay\PaypalRest\Message\PaymentApproveResponse', $response);
-        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
 
         $this->assertEquals('PAY-2LY017912Y929154HKQ74XPY', $response->getTransactionReference());
         $this->assertEquals('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-5SD087658M435925N', $response->getRedirectUrl());
@@ -55,7 +56,7 @@ class AuthoriseMockTest extends TestCase
 
         $request = new PaymentCompleteRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
-            'purchaseId' => 'PAY-2LY017912Y929154HKQ74XPY',
+            'transactionReference' => 'PAY-2LY017912Y929154HKQ74XPY',
             'payerId' => 'HVMBSS6TABKJN',
         ));
 
@@ -124,7 +125,7 @@ class AuthoriseMockTest extends TestCase
 
         $request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
-            'purchaseId' => '9HJ30098MP9464308',
+            'transactionReference' => '9HJ30098MP9464308',
             'amount' => '3.00',
             'currency' => 'USD',
         ));
@@ -146,7 +147,7 @@ class AuthoriseMockTest extends TestCase
 
         $request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
-            'purchaseId' => '1D2800957K044141A',
+            'transactionReference' => '1D2800957K044141A',
             'amount' => '3.00',
             'currency' => 'USD',
             'type' => 'capture',
@@ -169,7 +170,7 @@ class AuthoriseMockTest extends TestCase
 
         $request = new VoidRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array(
-            'purchaseId' => '1SN458127W2399139',
+            'transactionReference' => '1SN458127W2399139',
         ));
 
         $response = $request->send();

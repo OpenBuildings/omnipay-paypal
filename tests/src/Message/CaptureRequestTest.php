@@ -21,7 +21,7 @@ class CaptureRequestTest extends TestCase
     public function testGetEndpoint()
     {
         $request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array('purchaseId' => 'id-12'));
+        $request->initialize(array('transactionReference' => 'id-12'));
 
         $this->assertEquals('/payments/authorization/id-12/capture', $request->getEndpoint());
     }
@@ -35,7 +35,7 @@ class CaptureRequestTest extends TestCase
 
         $this->setExpectedException(
             'Omnipay\Common\Exception\InvalidRequestException',
-            'The purchaseId parameter is required'
+            'The transactionReference parameter is required'
         );
 
         $request->getEndpoint();
@@ -52,18 +52,6 @@ class CaptureRequestTest extends TestCase
     }
 
     /**
-     * @covers ::getPurchaseId
-     * @covers ::setPurchaseId
-     */
-    public function testPurchaseId()
-    {
-        $request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->assertSame($request, $request->setPurchaseId('purchaseid'));
-        $this->assertSame('purchaseid', $request->getPurchaseId());
-    }
-
-    /**
      * @covers ::getIsFinalCapture
      * @covers ::setIsFinalCapture
      */
@@ -71,8 +59,8 @@ class CaptureRequestTest extends TestCase
     {
         $request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
 
-        $this->assertSame($request, $request->setIsFinalCapture('purchaseid'));
-        $this->assertSame('purchaseid', $request->getIsFinalCapture());
+        $this->assertSame($request, $request->setIsFinalCapture('transactionReference'));
+        $this->assertSame('transactionReference', $request->getIsFinalCapture());
     }
 
     public function dataGetData()

@@ -19,14 +19,14 @@ class PaymentCompleteRequestTest extends TestCase
     {
         return array(
             array(
-                array('purchaseId' => 'id-12'),
+                array('transactionReference' => 'id-12'),
                 '/payments/payment/id-12/execute',
                 null,
             ),
             array(
                 array(),
                 null,
-                'The purchaseId parameter is required'
+                'The transactionReference parameter is required'
             ),
         );
     }
@@ -58,18 +58,6 @@ class PaymentCompleteRequestTest extends TestCase
         $request = new PaymentCompleteRequest($this->getHttpClient(), $this->getHttpRequest());
 
         $this->assertEquals('POST', $request->getHttpMethod());
-    }
-
-    /**
-     * @covers ::getPurchaseId
-     * @covers ::setPurchaseId
-     */
-    public function testPurchaseId()
-    {
-        $request = new PaymentCompleteRequest($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->assertSame($request, $request->setPurchaseId('purchaseid'));
-        $this->assertSame('purchaseid', $request->getPurchaseId());
     }
 
     /**
