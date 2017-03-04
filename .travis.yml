@@ -9,11 +9,8 @@ php:
   - 7.1
   - hhvm
 
-before_install:
-  - composer selfupdate
-
 install:
-  - composer install
+  - composer install --no-interaction --no-progress --prefer-dist
 
 before_script:
   - mkdir -p build/logs
