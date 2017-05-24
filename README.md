@@ -63,7 +63,7 @@ You can use 3 different methods for paying for purchases
 
 __Paypal Redirect__
 
-If you don ot provide any payment methods, purchase() method will generate a redirect response.
+If you do not provide any payment methods, purchase() method will generate a redirect response.
 
 ```php
 $purchase = $gateway->purchase(array(
